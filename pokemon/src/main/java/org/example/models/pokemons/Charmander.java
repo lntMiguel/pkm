@@ -2,40 +2,48 @@ package org.example.models.pokemons;
 
 import org.example.models.especiais.Especial;
 
-public class Charmander implements Pokemon{
+public class Charmander implements Pokemon {
+    private Evolucao evolucao;
+    private Atributos atributos;
 
-    private Atributos atb;
-
-    private Especial especial;
-
-    public Charmander(){
-        this.atb = new Atributos(30,100);
-        this.especial = new Especial("Ember", 50);
+    public Charmander() {
+        this.evolucao = Evolucao.CHARMANDER;
+        this.atributos = this.evolucao.getAtributos();
     }
-
 
     @Override
     public int getHp() {
-        return this.atb.getHp();
+        return atributos.getHp();
     }
 
     @Override
     public int getATK() {
-        return this.atb.getAtk();
+        return atributos.getAtk();
     }
 
     @Override
     public void dano(int dano) {
-        atb.setHp(atb.getHp() - dano);
+        this.atributos = this.atributos.reduzirHp(dano);
     }
 
     @Override
     public String getNomeEspecial() {
-        return especial.getNome();
+        return evolucao.getEspecial().getNome();
     }
 
     @Override
     public int getDanoEspecial() {
-        return especial.getAtk();
+        return evolucao.getEspecial().getAtk();
+    }
+
+    @Override
+    public void evoluir() {
+        if (evolucao.getProximaEvolucao() != null) {
+            this.evolucao = evolucao.getProximaEvolucao();
+            this.atributos = this.evolucao.getAtributos();
+            System.out.println("Seu Pokémon evoluiu para " + evolucao.name() + "!");
+        } else {
+            System.out.println("Seu Pokémon já está na evolução máxima!");
+        }
     }
 }

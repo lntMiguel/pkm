@@ -4,38 +4,47 @@ import org.example.models.especiais.Especial;
 
 public class Caterpie implements Pokemon{
 
-    private Atributos atb;
+    private Evolucao evolucao;
+    private Atributos atributos;
 
-    private Especial especial;
-
-    public Caterpie(){
-        this.atb = new Atributos(20,100);
-        this.especial = new Especial("Bug Bite", 30);
+    public Caterpie() {
+        this.evolucao = Evolucao.CATERPIE;
+        this.atributos = this.evolucao.getAtributos();
     }
-
 
     @Override
     public int getHp() {
-        return this.atb.getHp();
+        return atributos.getHp();
     }
 
     @Override
     public int getATK() {
-        return this.atb.getAtk();
+        return atributos.getAtk();
     }
 
     @Override
     public void dano(int dano) {
-        atb.setHp(atb.getHp() - dano);
+        this.atributos = this.atributos.reduzirHp(dano);
     }
 
     @Override
     public String getNomeEspecial() {
-        return especial.getNome();
+        return evolucao.getEspecial().getNome();
     }
 
     @Override
     public int getDanoEspecial() {
-        return especial.getAtk();
+        return evolucao.getEspecial().getAtk();
+    }
+
+    @Override
+    public void evoluir() {
+        if (evolucao.getProximaEvolucao() != null) {
+            this.evolucao = evolucao.getProximaEvolucao();
+            this.atributos = this.evolucao.getAtributos();
+            System.out.println("Seu Pokémon evoluiu para " + evolucao.name() + "!");
+        } else {
+            System.out.println("Seu Pokémon já está na evolução máxima!");
+        }
     }
 }

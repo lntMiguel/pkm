@@ -21,6 +21,10 @@ public class Atributos {
         this.atk = atk;
     }
 
+    public Atributos reduzirHp(int dano) {
+        return new Atributos(atk, Math.max(0, hp - dano));
+    }
+
     public Atributos(int atk, int hp) {
         this.atk = atk;
         this.hp = hp;

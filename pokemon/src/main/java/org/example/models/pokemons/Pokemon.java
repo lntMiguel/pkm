@@ -7,4 +7,5 @@ public interface Pokemon {
     public void dano(int dano);
     public String getNomeEspecial();
     public int getDanoEspecial();
+    void evoluir();
 }
