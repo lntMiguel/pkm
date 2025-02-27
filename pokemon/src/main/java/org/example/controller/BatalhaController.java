@@ -1,6 +1,6 @@
 package org.example.controller;
 
-import org.example.models.pokemons.Jogador;
+import org.example.models.jogador.Jogador;
 import org.example.service.BatalhaService;
 
 import java.util.Scanner;
