@@ -1,14 +1,49 @@
 package org.example.models.jogador;
 
+import org.example.models.cartas.CartaPokemon;
+import org.example.models.cartas.Cartas;
 import org.example.models.cartas.Deck;
-import org.example.models.itens.Item;
+import org.example.models.cartas.TipoPokemon;
+import org.example.models.factory.CartaPokemonFactory;
+import org.example.models.itens.TipoItens;
 
 public class Jogador {
 
+    private Cartas carta;
+    private TipoItens item;
     private String nome;
-    private Deck deck ;
-    private Item item;
-    private int hp;
+    private int pontuacao;
+
+    public Jogador(){
+        this.nome = "Ash";
+        this.carta = new Deck();
+        this.carta.adicionaCarta(CartaPokemonFactory.criarCarta(TipoPokemon.CHARMANDER));
+        this.carta.adicionaCarta(CartaPokemonFactory.criarCarta(TipoPokemon.CHARMANDER));
+        this.carta.adicionaCarta(CartaPokemonFactory.criarCarta(TipoPokemon.CHARMANDER));
+        this.item = TipoItens.POCAO;
+    }
+
+    public Jogador (CartaPokemon c, TipoItens i){
+        this.carta = c;
+        this.item = i;
+    }
+
+    public String getNomeCarta(){
+        return carta.getNome();
+    }
+
+    public boolean adicionaCarta(CartaPokemon cpkm){
+        if(carta.getClass().getSimpleName().equals("CartaPokemon")){
+            Cartas tmp = this.carta;
+            this.carta = new Deck();
+            this.carta.adicionaCarta(tmp.getCartas()[0]);
+        }
+        return this.carta.adicionaCarta(cpkm);
+    }
+
+    public Cartas getCarta() {
+        return carta;
+    }
 
     public String getNome() {
         return nome;
@@ -18,42 +53,15 @@ public class Jogador {
         this.nome = nome;
     }
 
-    public int getHp() {
-        return hp;
+    public int getPontuacao() {
+        return pontuacao;
     }
 
-    public void setHp(int hp) {
-        this.hp = hp;
+    public void setPontuacao(int pontuacao) {
+        this.pontuacao = pontuacao;
     }
 
-    public Item getItem() {
+    public TipoItens getItem() {
         return item;
     }
-
-    public void setItem(Item item) {
-        this.item = item;
-    }
-
-    public Deck getDeck() {
-        return deck;
-    }
-
-    public void setDeck(Deck deck) {
-        this.deck = deck;
-    }
-
-    public Jogador(String nome, Deck deck, Item item,int hp) {
-        this.nome = nome;
-        this.deck = deck ;
-        this.item = item;
-        this.hp = hp;
-    }
-
-    public Jogador(){
-        this.nome = "nome";
-        this.deck = new Deck();
-        this.item = Item.FORCA;
-        this.hp = 50;
-    }
-
 }

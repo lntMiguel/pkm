@@ -1,71 +1,70 @@
 package org.example.models.cartas;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Deck implements Carta{
+public class Deck implements Cartas{
 
-    private ArrayList<CartaPkm> deck;
-
-    @Override
-    public String getNome() {
-        String temp ="";
-
-        for(CartaPkm c : deck){
-            temp = temp + c.getNome() + "\n";
-        }
-
-        return "";
-    }
+    private List<CartaPokemon> deck = new ArrayList<>();
 
     @Override
-    public int getHP() {
-        return 0;
+    public boolean adicionaCarta(CartaPokemon carta){
+        if (deck.size() >= 3) {return false;}
+        deck.add(carta);
+        return true;
     }
 
-    @Override
-    public int getATK() {
-        return 0;
+    public boolean removeCarta(String nome){
+        return true;
     }
-
-    @Override
-    public int getDEF() {
-        return 0;
-    }
-
-
 
     public Deck(){
         this.deck = new ArrayList<>();
     }
 
-
-    public Deck(ArrayList<CartaPkm> deck){
-        this.deck = deck;
-    }
-
-    public ArrayList<CartaPkm> getDeck() {
-        return deck;
-    }
-
-    public void setDeck(ArrayList<CartaPkm> deck) {
-        this.deck = deck;
-    }
-
-    public boolean addCarta(CartaPkm carta){
-        if(deck.size() == 6){
-            System.out.println("Deck cheio");
-            return false;
+    @Override
+    public CartaPokemon[] getCartas() {
+        CartaPokemon[] tmp = new CartaPokemon[this.deck.size()];
+        for (int i = 0; i < this.deck.size(); i++){
+            tmp[i] = this.deck.get(i);
         }
+        return tmp;
+    }
 
-        else {
-            deck.add(carta);
-            return true;
+
+    @Override
+    public String getNome() {
+        String temp = "";
+
+        for (CartaPokemon c: deck){
+            temp = temp + c.getNome() + "\n";
         }
-
+        return temp;
     }
 
-    public boolean removeCarta(int i) {
-        return false;
+    @Override
+    public int getHP() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    @Override
+    public int getATK() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int getDEF() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int getESP() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void evoluir() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+    }
 }

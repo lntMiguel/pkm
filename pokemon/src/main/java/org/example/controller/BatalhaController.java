@@ -1,46 +1,30 @@
 package org.example.controller;
 
+
+import org.example.facade.BatalhaFacade;
+import org.example.models.cartas.CartaPokemon;
 import org.example.models.jogador.Jogador;
 import org.example.service.BatalhaService;
 
 import java.util.Scanner;
 
-public class BatalhaController {
-    private Scanner scanner = new Scanner(System.in);
-    private BatalhaService batalhaService = new BatalhaService();
+public class BatalhaController{
+
+    private static BatalhaController batalhaController;
+    private BatalhaFacade batalhaFacade = new BatalhaFacade();
+
+    private BatalhaController() {}
+
+    public static BatalhaController getInstance() {
+        if (batalhaController == null) {
+            batalhaController = new BatalhaController();
+        }
+        return batalhaController;
+    }
 
     public void iniciaBatalha(Jogador jogador1, Jogador jogador2) {
-        int especialJ1 = 2;
-        int especialJ2 = 2;
-
-        while (!batalhaService.verificaFim(jogador1, jogador2)) {
-            int escolhaJ1 = obterEscolha(jogador1, especialJ1);
-            int escolhaJ2 = obterEscolha(jogador2, especialJ2);
-
-            batalhaService.processarTurno(jogador1, jogador2, escolhaJ1, escolhaJ2);
-            batalhaService.processarTurno(jogador2, jogador1, escolhaJ2, escolhaJ1);
-
-            especialJ1 = batalhaService.atualizarEspecial(especialJ1, escolhaJ1);
-            especialJ2 = batalhaService.atualizarEspecial(especialJ2, escolhaJ2);
-        }
-        batalhaService.exibirVencedor(jogador1, jogador2);
+        batalhaFacade.iniciarBatalha(jogador1, jogador2);
     }
-
-    private int obterEscolha(Jogador jogador, int especial) {
-        int escolha;
-        do {
-            batalhaService.exibirOpcoes(jogador, especial);
-            escolha = scanner.nextInt();
-        } while (escolha == 3 && especial > 0);
-        return escolha;
-    }
-
-
-
-
-
-
-
 
 
 
